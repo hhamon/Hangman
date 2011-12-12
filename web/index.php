@@ -1,5 +1,6 @@
 <?php
 
+require_once __DIR__ .'/../src/WordList.php';
 require_once __DIR__ .'/../src/GameContext.php';
 require_once __DIR__ .'/../src/Storage/SessionStorage.php';
 
@@ -8,6 +9,13 @@ $letters = array(
     'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R',
     'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'
 );
+
+$list = new WordList();
+$list->addWord('gobelins');
+$list->addWord('software');
+$list->addWord('hardware');
+$list->addWord('admin');
+$list->addWord('programming');
 
 $context = new GameContext(new SessionStorage('hangman'));
 
@@ -18,7 +26,7 @@ if (isset($_GET['new'])) {
 
 // Restore Game?
 if (!$game = $context->loadGame()) {
-    $game = $context->newGame(new Word('gobelins'));
+    $game = $context->newGame(new Word($list->getRandomWord(8)));
 }
 
 if (!empty($_GET['letter'])) {
