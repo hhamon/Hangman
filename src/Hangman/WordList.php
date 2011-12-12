@@ -1,5 +1,9 @@
 <?php
 
+namespace Hangman;
+
+use Hangman\Loader\LoaderInterface;
+
 class WordList
 {
     private $words;
@@ -12,7 +16,7 @@ class WordList
     public function getRandomWord($length)
     {
         if (!isset($this->words[$length])) {
-            throw new InvalidArgumentException(sprintf('There is no word of length %u.', $length));
+            throw new \InvalidArgumentException(sprintf('There is no word of length %u.', $length));
         }
 
         $key = array_rand($this->words[$length]);
@@ -33,12 +37,12 @@ class WordList
         }
     }
 
-    /*public function load(WordLoaderInterface $loader)
+    public function load(LoaderInterface $loader)
     {
         $loader->load();
 
         foreach ($loader->getWords() as $word) {
             $this->addWord($word);
         }
-    }*/
+    }
 }

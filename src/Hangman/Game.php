@@ -1,6 +1,6 @@
 <?php
 
-require_once __DIR__.'/Word.php';
+namespace Hangman;
 
 class Game 
 {
@@ -74,7 +74,7 @@ class Game
 
         try {
             $result = $this->word->tryLetter($letter);
-        } catch (InvalidArgumentException $e) {
+        } catch (\InvalidArgumentException $e) {
             
         }
 

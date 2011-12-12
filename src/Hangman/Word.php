@@ -1,5 +1,7 @@
 <?php
 
+namespace Hangman;
+
 class Word 
 {
     private $word;
@@ -66,11 +68,11 @@ class Word
     {
         $letter = strtolower($letter);
         if (0 === preg_match('/^[a-z]$/', $letter)) {
-            throw new InvalidArgumentException(sprintf('The letter "%s" is not a valid ASCII character matching [a-z].', $letter));
+            throw new \InvalidArgumentException(sprintf('The letter "%s" is not a valid ASCII character matching [a-z].', $letter));
         }
 
         if (in_array($letter, $this->triedLetters)) {
-            throw new InvalidArgumentException(sprintf('The letter "%s" has already been tried.', $letter));
+            throw new \InvalidArgumentException(sprintf('The letter "%s" has already been tried.', $letter));
         }
 
         $this->triedLetters[] = $letter;

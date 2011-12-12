@@ -1,8 +1,11 @@
 <?php
 
-require_once __DIR__ .'/../src/Word.php';
+namespace Hangman\Tests;
 
-class WordTest extends PHPUnit_Framework_TestCase
+use Hangman\Word;
+
+
+class WordTest extends \PHPUnit_Framework_TestCase
 {
     public function testGuessed()
     {

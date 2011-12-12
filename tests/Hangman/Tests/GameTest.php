@@ -1,9 +1,11 @@
 <?php
 
-require_once __DIR__ .'/../src/Game.php';
-require_once __DIR__ .'/../src/Word.php';
+namespace Hangman\Tests;
 
-class GameTest extends PHPUnit_Framework_TestCase
+use Hangman\Game;
+use Hangman\Word;
+
+class GameTest extends \PHPUnit_Framework_TestCase
 {
     public function testIsLetterFound()
     {
@@ -75,7 +77,7 @@ class GameTest extends PHPUnit_Framework_TestCase
     public function testTryWord()
     {
         $game = new Game(new Word('php'));
-        $this->assertInstanceOf('Word', $game->getWord());
+        $this->assertInstanceOf('Hangman\\Word', $game->getWord());
         $this->assertTrue($game->tryWord('php'));
         $this->assertEquals(0, $game->getAttempts());
     }

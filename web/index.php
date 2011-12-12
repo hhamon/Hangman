@@ -1,8 +1,13 @@
 <?php
 
-require_once __DIR__ .'/../src/WordList.php';
-require_once __DIR__ .'/../src/GameContext.php';
-require_once __DIR__ .'/../src/Storage/SessionStorage.php';
+require __DIR__.'/../autoload.php';
+
+use Hangman\Word;
+use Hangman\WordList;
+use Hangman\GameContext;
+use Hangman\Loader\TextFileLoader;
+use Hangman\Loader\XmlFileLoader;
+use Hangman\Storage\SessionStorage;
 
 $letters = array(
     'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I',
@@ -11,10 +16,8 @@ $letters = array(
 );
 
 $list = new WordList();
-$list->addWord('gobelins');
-$list->addWord('software');
-$list->addWord('hardware');
-$list->addWord('admin');
+$list->load(new TextFileLoader(__DIR__.'/../data/words.txt'));
+$list->load(new XmlFileLoader(__DIR__.'/../data/words.xml'));
 $list->addWord('programming');
 
 $context = new GameContext(new SessionStorage('hangman'));

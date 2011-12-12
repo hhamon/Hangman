@@ -1,8 +1,8 @@
 <?php
 
-require_once __DIR__.'/Game.php';
-require_once __DIR__.'/Word.php';
-require_once __DIR__.'/Storage/StorageInterface.php';
+namespace Hangman;
+
+use Hangman\Storage\StorageInterface;
 
 class GameContext
 {

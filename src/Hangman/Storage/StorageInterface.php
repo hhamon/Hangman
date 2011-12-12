@@ -1,5 +1,7 @@
 <?php
 
+namespace Hangman\Storage;
+
 interface StorageInterface
 {
     public function read($key);

@@ -1,6 +1,6 @@
 <?php
 
-require_once __DIR__.'/StorageInterface.php';
+namespace Hangman\Storage;
 
 class SessionStorage implements StorageInterface
 {
