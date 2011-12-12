@@ -1,6 +1,7 @@
 <?php
 
-require_once __DIR__ .'/../src/Game.php';
+require_once __DIR__ .'/../src/GameContext.php';
+require_once __DIR__ .'/../src/Storage/SessionStorage.php';
 
 $letters = array(
     'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I',
@@ -8,8 +9,25 @@ $letters = array(
     'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'
 );
 
-$game = new Game(new Word('gobelins'));
+$context = new GameContext(new SessionStorage('hangman'));
 
+// New Game?
+if (isset($_GET['new'])) {
+    $context->reset();
+}
+
+// Restore Game?
+if (!$game = $context->loadGame()) {
+    $game = $context->newGame(new Word('gobelins'));
+}
+
+if (!empty($_GET['letter'])) {
+    $game->tryLetter($_GET['letter']);
+} else if (!empty($_POST['word'])) {
+    $game->tryWord($_POST['word']);
+}
+
+$context->save($game);
 
 ?>
 <!DOCTYPE html>
@@ -28,7 +46,7 @@ $game = new Game(new Word('gobelins'));
         <?php else : ?>
             <p>You still have <?php echo $game->getRemainingAttempts() ?> remaining attempts.</p>
             <p>
-                <?php foreach ($game->getWord()->getLetters() as $letter) : ?>
+                <?php foreach (str_split((string) $game->getWord()) as $letter) : ?>
                     <?php echo $game->isLetterFound($letter) ? $letter : '?' ?>
                     &nbsp;
                 <?php endforeach ?>

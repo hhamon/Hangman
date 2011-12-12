@@ -11,11 +11,11 @@ class Word
      *
      * @param string $word The word to guess.
      */
-    public function __construct($word)
+    public function __construct($word, array $foundLetters = array(), array $triedLetters = array())
     {
         $this->word = $word;
-        $this->foundLetters = array();
-        $this->triedLetters = array();
+        $this->foundLetters = $foundLetters;
+        $this->triedLetters = $triedLetters;
     }
 
     public function __toString()
@@ -25,10 +25,20 @@ class Word
 
     public function guessed()
     {
-        $this->foundLetters = $this->getSplitWord();
+        $this->foundLetters = $this->getLetters();
     }
 
-    private function getSplitWord()
+    public function getFoundLetters()
+    {
+        return $this->foundLetters;
+    }
+
+    public function getTriedLetters()
+    {
+        return $this->triedLetters;
+    }
+
+    public function getLetters()
     {
         return array_unique(str_split($this->word));
     }
@@ -40,7 +50,7 @@ class Word
      */
     public function isGuessed()
     {
-        $diff = array_diff($this->getSplitWord(), $this->foundLetters);
+        $diff = array_diff($this->getLetters(), $this->foundLetters);
 
         return 0 === count($diff);
     }

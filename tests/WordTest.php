@@ -15,9 +15,10 @@ class WordTest extends PHPUnit_Framework_TestCase
 
     public function testGetWord()
     {
-        $word = new Word('gobelins');
-        $this->assertEquals('gobelins', (string) $word);
-        $this->assertEquals('gobelins', $word->getWord());
+        $word = new Word('php');
+        $this->assertEquals(array('p', 'h'), $word->getLetters());
+        $this->assertEquals('php', (string) $word);
+        $this->assertEquals('php', $word->getWord());
     }
 
     public function testIsGuessed()
@@ -34,6 +35,7 @@ class WordTest extends PHPUnit_Framework_TestCase
     {
         $word = new Word('gobelins');
         $this->assertTrue($word->tryLetter('g'));
+        $this->assertEquals(array('g'), $word->getFoundLetters());
     }
 
     public function testTryLetterWithNonAsciiLetter()

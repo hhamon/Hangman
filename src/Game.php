@@ -9,10 +9,30 @@ class Game
     private $word;
     private $attempts;
 
-    public function __construct(Word $word)
+    public function __construct(Word $word, $attempts = 0)
     {
         $this->word = $word;
-        $this->attempts = 0;
+        $this->attempts = (int) $attempts;
+    }
+
+    public function getContext()
+    {
+        return array(
+            'word'          => (string) $this->word,
+            'attempts'      => $this->attempts,
+            'found_letters' => $this->word->getFoundLetters(),
+            'tried_letters' => $this->word->getTriedLetters()
+        );
+    }
+
+    public function getRemainingAttempts()
+    {
+        return static::MAX_ATTEMPTS - $this->attempts;
+    }
+
+    public function isLetterFound($letter)
+    {
+        return in_array($letter, $this->word->getFoundLetters());
     }
 
     public function isHanged()
