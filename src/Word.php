@@ -23,6 +23,16 @@ class Word
         return $this->word;
     }
 
+    public function guessed()
+    {
+        $this->foundLetters = $this->getSplitWord();
+    }
+
+    private function getSplitWord()
+    {
+        return array_unique(str_split($this->word));
+    }
+
     /**
      * Returns whether or not the word has been guessed.
      *
@@ -30,14 +40,9 @@ class Word
      */
     public function isGuessed()
     {
-        $nbLetters = strlen($this->word);
-        for ($i = 0; $i < $nbLetters; $i++) {
-            if (!in_array($this->word[$i], $this->foundLetters)) {
-                return false;
-            }
-        }
+        $diff = array_diff($this->getSplitWord(), $this->foundLetters);
 
-        return true;
+        return 0 === count($diff);
     }
 
     /**

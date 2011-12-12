@@ -20,6 +20,11 @@ class Game
         return static::MAX_ATTEMPTS === $this->attempts;
     }
 
+    public function isWon()
+    {
+        return $this->word->isGuessed();
+    }
+
     public function getWord()
     {
         return $this->word;
@@ -33,6 +38,8 @@ class Game
     public function tryWord($word)
     {
         if ($word === $this->word->getWord()) {
+            $this->word->guessed();
+
             return true;
         }
 

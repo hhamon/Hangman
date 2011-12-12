@@ -4,6 +4,15 @@ require_once __DIR__ .'/../src/Word.php';
 
 class WordTest extends PHPUnit_Framework_TestCase
 {
+    public function testGuessed()
+    {
+        $word = new Word('gobelins');
+        $this->assertFalse($word->isGuessed());
+
+        $word->guessed();
+        $this->assertTrue($word->isGuessed());
+    }
+
     public function testGetWord()
     {
         $word = new Word('gobelins');

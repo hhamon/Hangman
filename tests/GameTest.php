@@ -5,6 +5,27 @@ require_once __DIR__ .'/../src/Word.php';
 
 class GameTest extends PHPUnit_Framework_TestCase
 {
+    public function testIsWonWithWordTrial()
+    {
+        $game = new Game(new Word('php'));
+        $this->assertFalse($game->isWon());
+
+        $game->tryWord('php');
+        $this->assertTrue($game->isWon());
+    }
+
+    public function testIsWonWithLettersTrial()
+    {
+        $game = new Game(new Word('php'));
+        $this->assertFalse($game->isWon());
+
+        $game->tryLetter('h');
+        $this->assertFalse($game->isWon());
+
+        $game->tryLetter('p');
+        $this->assertTrue($game->isWon());
+    }
+
     public function testIsHangedWithWordTrial()
     {
         $game = new Game(new Word('php'));
